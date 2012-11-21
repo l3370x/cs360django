@@ -1,0 +1,10 @@
+<b>Items in the list:</b>
+{% if list %}
+    <ul>
+    {% for item in list %}
+        <li><a href="/list/item/{{ item.id }}/">{{ item.text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No items are available.</p>
+{% endif %}
