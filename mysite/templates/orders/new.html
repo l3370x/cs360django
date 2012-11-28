@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<b>Pay the service fee for this dog:</b>
+
+{% if error %}<p><i>{{ error_message }}</i></p>{% endif %}
+
+<form action="/orders/new/" method="post">
+{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Save" />
+</form>
+
+{% endblock %}

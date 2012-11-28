@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div id="list">
+<p><b>Your list:</b></p>
+{% if list %}
+    <ul>
+    {% for item in list %}
+    <li><a href="/list/item/{{ item.id }}/">{{ item.text }}</a> 
+      (<a href="/list/item/edit/{{ item.id }}/">edit</a>)
+      | <a href="/list/item/delete/{{ item.id }}/">delete</a>)
+      | <a href="/list/item/today/{{ item.id }}/">today</a>)</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No items are available.</p>
+{% endif %}
+</div>
+
+<div id="today">
+{% if today %}
+<b>Today:</b>
+    <ul>
+    {% for item in today %}
+        <li><a href="/list/item/{{ item.id }}/">{{ item.text }}</a>
+          (<a href="/list/item/later/{{ item.id }}/">later</a>)</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+</div>
+
+{% endblock %}

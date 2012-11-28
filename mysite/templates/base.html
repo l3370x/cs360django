@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>: : Dog World : :</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" href="/person/static/style.css" />
+
+</head>
+<body>
+<div id="dvmaincontainer">
+  <!--main div container starts here-->
+  <div id="dvtopcontainer">
+    <!-- top container starts here-->
+    <div id="dvlogocontainer">
+      <!-- logo container starts here-->
+	  <h1>DogWorld</h1>
+	  <h4>Adopting Every Dog</h4>
+      
+      <!-- logo container ends here-->
+    </div>
+    <div id="dvnavicontainer">
+      <!-- navogation div starts here-->
+      <img src="/templates/static/images/navi_left.jpg" alt="" />
+<div id="tabs1" >
+        <ul>
+          <!-- CSS Tabs -->
+        <li><a href="/person/"><span>Home</span></a></li>
+          <li><a href="/dog/find/"><span>Search</span></a></li>
+          <li><a href="/person/"><span>My Dogs </span></a></li>
+          <li><a href="/about/"><span>About Us</span></a></li>
+        
+
+        </ul>
+      </div>
+      <img src="/templates/static/images/navi_right.jpg" alt="" />
+      <!-- navogation div ends here-->
+    </div>
+    <!-- top container ends here-->
+  </div>
+  <div id="dvbodycontainer">
+    <!-- body div starts here-->
+    <div id="dvbannerbgcontainer">
+      <!-- banner bg div starts here-->
+      <div class="lftcontainer">
+        <a href="/dog/find/">
+        <div class="dvbannerleft">
+          <!-- banner left div starts here-->
+          <img src="/templates/static/images/light.jpg"  alt="" title=""/>
+          <p><b>Adopt a Dog</b> Adopt a dog from one of our fosters.</p></a>
+          <!-- banner left div ends here-->
+        </div>
+        <a href="/dog/add/">
+        <div class="dvbannerleft">
+          <!-- banner left div starts here-->
+          <img src="/templates/static/images/home_icon.jpg"  alt="" title=""/>
+          <p><b>List New Dog</b> List your Dog on the DogWorld website.</p></a>
+          <!-- banner left div ends here-->
+        </div>
+        
+      </div>
+      <div id="dvbanner">
+        <!-- banner div starts here-->
+        <img src="/templates/static/images/banner.jpg"  alt="" title=""/>
+        <!-- banner div ends here-->
+      </div>
+      <!-- banner bg div ends here-->
+    </div>
+    <div id="dvleftpanel">
+      <!-- left pannel div starts here-->
+      
+      <div id="leftfoot">
+      {% if not create %}
+      {% if not newbie %}
+        
+      <a href="/person/"><p>My Dogs</p></a>
+      <a href="/dog/add/"><p>New Dog</p></a>
+      <a href="/dog/find/"><p>Find</p></a>
+      <a href="/dog/all/"><p>All Dogs</p></a>
+      
+      {% else %}
+      <a href="/auth/login?next=/person/"><p>Log In</p></a>
+      <a href="/auth/create/"><p>Create Account</p></a>
+      {% endif %}
+      {% else %}
+      <a href="/auth/login?next=/person/"><p>Log In</p></a>
+      {% endif %}
+        
+      </div>
+      <!-- left pannel div ends here-->
+    </div>
+    <div id="dvrightpanel">
+      <!-- right panel div starts here-->
+      {% block content %}
+      {% endblock %}
+      
+      <!-- right panel div ends here-->
+    </div>
+    <!-- body div ends here-->
+  </div>
+  <div id="dvfootercontainer">
+    <!-- footer div starts here-->
+    <div id="foottop">
+      <p><span>Copyright © 2012 DogWorld</span> <a href="/person/" title="Home">Home</a><a href="/auth/logout/" title="Log Out">Log Out</a></p>
+    </div>
+    <!-- footer div ends here-->
+  </div>
+  <!--main div container ends here-->
+</div>
+</body>
+</html>

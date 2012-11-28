@@ -1,0 +1,11 @@
+{% if latest_poll_list %}
+    The Polls are:
+    <ul>
+    {% for poll in latest_poll_list %}
+        <li><a href="/polls/{{ poll.id }}/">{{ poll.question }}</a></li> 
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+<a href='http://127.0.0.1:8000/admin/'>ADMIN view</a>

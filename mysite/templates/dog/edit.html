@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<b>Edit item:</b>
+
+{% if error %}<p><i>{{ error_message }}</i></p>{% endif %}
+
+<form action="." method="post"  enctype="multipart/form-data">
+{% csrf_token %}
+    <table>
+      {{ form.as_p }}
+      <br>
+      {{ breed_formset.as_p }}
+      <br>
+      {{ quality_formset.as_p }}
+      <br>
+      {{ picture_formset.as_p }}
+      <tr>
+        <th></th>
+        <td><input type="submit" name="submit" value="Submit" class="button"></td>
+      </tr>
+    </table>
+  </form>
+
+{% endblock %}

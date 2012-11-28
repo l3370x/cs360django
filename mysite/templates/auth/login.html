@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if error %}<p><i>{{ error }}</i></p>{% endif %}
+
+In order to view dogs on this site,  you must have an account.  Please log in or make an account below.
+<br>
+
+<form action="/person/auth/login/" method="post">
+{% csrf_token %}
+{{ form.as_ul }}
+<input type="submit" value="Login" class="button"/>
+</form>
+
+<p><i>or</i></p>
+
+<p><a href="/person/auth/create">Create an account</a></p>
+
+{% endblock %}
+
+
+

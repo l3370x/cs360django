@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+{% if error %}<p><i>{{ error_message }}</i></p>{% endif %}
+{% if not all %}
+all dogs up for adoption:
+<br>
+{% endif %}
+{% if doglist %}
+    <ul>
+    {% for dog in doglist %}
+    <li><a href="/dog/{{ dog.id }}/">{{ dog.name }}</a>
+    
+    
+    </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No items are available.</p>
+{% endif %}
+
+
+{% endblock %}

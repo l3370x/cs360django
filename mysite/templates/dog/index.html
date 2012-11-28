@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div id="list">
+{% if who == "all" %}
+Every dog from every user:
+{% endif %}
+{% if who == "me" %}
+Your Dogs:
+{% endif %}
+{% if who == "find" %}
+All dogs up for adoption:
+{% endif %}
+<br>
+{% if piclist %}
+<table>
+{% for entry in piclist %}
+<tr>
+<td class="entry"><a href="/dog/{{ entry.theDog.id }}/">{{ entry.theDog.name }}</a> 
+{% if who == "me" %}
+(<a href="/dog/edit/{{ entry.theDog.id }}/">edit</a>
+| <a href="/dog/delete/{{ entry.theDog.id }}/">delete</a>)
+{% endif %}
+</td>
+<td class="entry">
+{% if entry.thePics %}
+{% load thumbnail %}
+{% for image in entry.thePics %}
+{% if forloop.counter <= 5 %}
+{% thumbnail image.image "100x100" crop="center" as im %}
+    <img src="/static/{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+{% endthumbnail %}
+{% endif %}
+{% endfor %}
+{% else %}
+<img src="/static/images/no_image.jpg" float=left/>
+{% endif %}
+</td>
+
+</tr>
+
+
+{% comment %}
+<li class="entry"><a href="/dog/{{ entry.theDog.id }}/">{{ entry.theDog.name }}</a> 
+{% if who == "me" %}
+(<a href="/dog/edit/{{ entry.theDog.id }}/">edit</a>
+| <a href="/dog/delete/{{ entry.theDog.id }}/">delete</a>)
+{% endif %}
+{% if entry.thePics %}
+<img src="/static/{{ entry.thePics.0.image }}" width=191 heigth=191 float=left/>
+{% endif %}
+<hr>
+</li>
+{% endcomment %}
+{% endfor %}
+</table>
+{% else %}
+    <p>You don't have any dogs up for adoption.  You can find a dog to adopt or 
+put one up for adoption using the links above.</p>
+{% endif %}
+
+</div>
+
+{% endblock %}

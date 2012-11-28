@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+
+<head>
+    <link rel="stylesheet" href="/person/static/style.css" />
+    <title>{% block title %}DogWorld{% endblock %}</title>
+    <script src="/person/static/menu.js"></script>
+</head>
+
+<body>
+
+  <div id="title">
+    {% block visualtitle %}
+    DogWorld
+    {% endblock %}
+  </div>
+
+  <div id="menu">
+    {% block menu %}
+    <ul>
+      <li><a href="/person/">Home</a></li>
+      <li><a href="/dog/add/">List a new dog to be adopted</a></li>
+      <li><a href="/dog/find/">Find a dog to adopt</a></li>
+      {% if not login %}
+      <li><a href="/person/auth/logout">Logout</a></li>
+      {% endif %}
+    </ul>
+    {% endblock %}
+  </div>
+
+  <div id="content">
+    {% block content %}
+    {% endblock %}
+  </div>
+
+</body>
+</html>

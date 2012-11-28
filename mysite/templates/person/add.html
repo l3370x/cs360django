@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<b>Create your profile!</b>
+<br>
+
+{% if error %}<p><i>{{ error_message }}</i></p>{% endif %}
+
+<form action="/" method="post">
+{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Save" />
+</form>
+
+{% endblock %}

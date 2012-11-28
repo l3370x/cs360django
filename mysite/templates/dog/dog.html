@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if isOwner %}
+<a href="/dog/edit/{{ dog.id }}/">Edit your dog</a>
+{% else %}
+{% if dog.up_for_adoption %}
+<a href='/orders/new/'>Adopt This Dog</a>
+{% endif %}
+{% endif %}
+<table>
+<tr>
+<th style="text-align:left">Dog</th>
+<th style="text-align:left;padding-left:20pt">Birthday</th>
+<th style="text-align:left;padding-left:20pt">Description</th>
+<th style="text-align:left;padding-left:20pt">Owner</th>
+<th style="text-align:left;padding-left:20pt">Breeds</th>
+<th style="text-align:left;padding-left:20pt">Qualities</th>
+</tr>
+<tr>
+<td>{{ dog.name }}</td>
+<td style="padding-left:20pt">{{ dog.birthday }}</td>
+<td style="padding-left:20pt">{{ dog.description }}</td>
+<td style="padding-left:20pt"><a href='/person/{{ dog.foster_id.id }}/'>{{ dog.foster_id }}</a></td>
+<td style="padding-left:20pt">
+{% for entry in myBreeds %}
+    <p>{{ entry.breed }}</p>
+{% endfor %}
+</td>
+<td style="padding-left:20pt">
+{% for entry in myQualities %}
+    <p>{{ entry.quality }}</p>
+{% endfor %}
+</td>
+</tr>
+</table>
+<table>
+<tr>
+<th style="text-align:left">Pictures</th>
+</tr>
+<tr>
+<td>
+{% for entry in myPictures %}
+    <img src="/static/{{ entry.image }}" width=600 float=left/>
+{% endfor %}
+</td>
+</tr>
+</table>
+<br>
+{% if isOwner %}
+<a href="/dog/edit/{{ dog.id }}/">Edit your dog</a>
+{% else %}
+{% if dog.up_for_adoption %}
+<a href='/orders/new/'>Adopt This Dog</a>
+{% endif %}
+{% endif %}
+
+{% endblock %}

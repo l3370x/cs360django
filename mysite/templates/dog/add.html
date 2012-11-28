@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<b>List a new dog for adoption:</b>
+
+{% if error %}<p><i>{{ error_message }}</i></p>{% endif %}
+
+<form action="." method="post" enctype="multipart/form-data">
+{% csrf_token %}
+<table>
+{{ form.as_p }}
+<br>Enter in as many breeds as you like.  You may leave some blank.
+{{ breed_formset.as_p }}
+<br>Enter in as many Qualities as you like.  You may leave some blank.
+{{ quality_formset.as_p }}
+<br>Enter in as many Pictures as you like.  You may leave some blank.
+{{ picture_formset.as_p }}
+<tr>
+<th></th>
+<td><input type="submit" name="submit" value="Submit" class="button"></td>
+</tr>
+</table>
+</form>
+
+{% endblock %}
+
+
+
