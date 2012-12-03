@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
-
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
@@ -18,7 +18,7 @@ from person.models import *
 from qualities.models import *
 from pictures.models import *
 from breed.models import *
-
+import re
 
 def home(request):
     doglist = Dog.objects.all().order_by('-date_added')
@@ -33,20 +33,63 @@ def home(request):
 
 
 
+def normalize_query(query_string,
+                    findterms=re.compile(r'"([^"]+)"|(\S+)').findall,
+                    normspace=re.compile(r'\s{2,}').sub):
+    ''' Splits the query string in invidual keywords, getting rid of unecessary spaces
+        and grouping quoted words together.
+        Example:
+        
+        >>> normalize_query('  some random  words "with   quotes  " and   spaces')
+        ['some', 'random', 'words', 'with quotes', 'and', 'spaces']
+    
+    '''
+    return [normspace(' ', (t[0] or t[1]).strip()) for t in findterms(query_string)]
+
+def get_query(query_string, search_fields):
+    ''' Returns a query, that is a combination of Q objects. That combination
+        aims to search keywords within a model by testing the given search fields.
+    
+    '''
+    query = None # Query to search for every search term        
+    terms = normalize_query(query_string)
+    for term in terms:
+        or_query = None # Query to search for a given term in each field
+        for field_name in search_fields:
+            q = Q(**{"%s__icontains" % field_name: term})
+            if or_query is None:
+                or_query = q
+            else:
+                or_query = or_query | q
+        if query is None:
+            query = or_query
+        else:
+            query = query | or_query
+    return query
+
+
 @login_required
 def index(request,who='me'):
     doglist = Dog.objects.filter(foster_id=Person.objects.get(user=request.user.id)).order_by('-date_added')
     if who == 'all':
         doglist = Dog.objects.all().order_by('-date_added')
     if who == 'find':
+        form = SearchForm()
         doglist = Dog.objects.filter(up_for_adoption=True).order_by('-date_added')
+    else:
+        form = '1'
+    if ('search' in request.GET) and request.GET['search'].strip():
+        form = SearchForm(request.GET)
+        query = request.GET['search']
+        entry_query = get_query(query, ['breed__breed', 'quality__quality','description','name'])
+        doglist = doglist.filter(entry_query).order_by('-date_added')
     piclist = []
     for dog in doglist:
         pics = dict({'theDog':dog,'thePics':Picture.objects.filter(dog_id=dog.id)})
         piclist.append(pics)
-    print piclist
     return render_to_response('dog/index.html',
-                              {'doglist':doglist,'who':who,'piclist':piclist})
+                              {'doglist':doglist,'who':who,'piclist':piclist
+                                ,'form':form}, context_instance=RequestContext(request))
 
 @login_required
 def all(request):

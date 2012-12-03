@@ -11,6 +11,10 @@ Your Dogs:
 {% endif %}
 {% if who == "find" %}
 All dogs up for adoption:
+<form action="." method="get" class="search">
+{{ form }}
+<input type="submit" name="query" value="Search" class="search">
+</form>
 {% endif %}
 <br>
 {% if piclist %}
@@ -24,6 +28,7 @@ All dogs up for adoption:
 {% endif %}
 </td>
 <td class="entry">
+<a href="/dog/{{ entry.theDog.id }}/">
 {% if entry.thePics %}
 {% load thumbnail %}
 {% for image in entry.thePics %}
@@ -36,6 +41,7 @@ All dogs up for adoption:
 {% else %}
 <img src="/static/images/no_image.jpg" float=left/>
 {% endif %}
+</a>
 </td>
 
 </tr>
@@ -56,8 +62,21 @@ All dogs up for adoption:
 {% endfor %}
 </table>
 {% else %}
-    <p>You don't have any dogs up for adoption.  You can find a dog to adopt or 
+
+
+{% if who == "all" %}
+<p>There are no dogs up for adoption.  Add a dog, or check back soon.</p>
+{% endif %}
+{% if who == "me" %}
+<p>You don't have any dogs up for adoption.  You can find a dog to adopt or 
 put one up for adoption using the links above.</p>
+{% endif %}
+{% if who == "find" %}
+<p>Your search didn't find any dog.  Try searching something else.</p>
+{% endif %}
+
+
+    
 {% endif %}
 
 </div>

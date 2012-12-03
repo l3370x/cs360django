@@ -24,6 +24,9 @@ DATABASES = {
     }
 }
 
+# import dj_database_url
+# DATABASES['default'] =  dj_database_url.config()
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -49,7 +52,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = '/home/aaron/Dropbox/360/Project7/djangoTest/byu-cs360-webapp/mysite/media/'
+MEDIA_ROOT = ROOT('media/')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -71,8 +74,8 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    "/home/aaron/Dropbox/360/Project7/djangoTest/byu-cs360-webapp/mysite/templates/static/",
-    "/home/aaron/Dropbox/360/Project7/djangoTest/byu-cs360-webapp/mysite/media/",
+    ROOT("templates/static/"),
+    ROOT("media/"),
 )
 
 # List of finder classes that know how to find static files in
@@ -112,7 +115,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    "/home/aaron/Dropbox/360/Project7/djangoTest/byu-cs360-webapp/mysite/templates",
+    ROOT("templates/"),
 )
 
 INSTALLED_APPS = (

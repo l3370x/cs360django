@@ -20,6 +20,10 @@ from breed.models import Breed
 from qualities.models import Quality
 from pictures.models import Picture
 
+class SearchForm(forms.Form):
+    search = forms.CharField(max_length=200)
+
+
 MAX_BREEDS = 10
 
 BreedFormSet = inlineformset_factory(Dog, 
